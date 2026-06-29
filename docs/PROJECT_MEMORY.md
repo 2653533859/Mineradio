@@ -390,3 +390,10 @@
   2. **多端路径约束**：严禁在 Node 层（如 `server.js`）无脑硬编码 `D:\` 或 `C:\` 等 Windows 路径。必须通过 `process.platform === 'win32'` 区分，Mac 下改用 `os.homedir()` 等跨端安全路径。
   3. **原生模块隔离**：凡涉及 Windows 底层特性（如调用 PowerShell 监听全局鼠标中键穿透），必须用 `if (process.platform === 'win32')` 妥善包裹，避免在 Mac 端触发致命错误。
 - 禁止回退或改坏的点：不要在前端写死平台检测（交给 preload）；不要在跨端后强行统一去除红绿灯导致 Mac 失去标准窗口交互；不要将 `D:\` 路径作为全局常量的唯一兜底。
+
+### 2026-06-29 - 右侧装饰面板升级：深潜粒子能量核心 (Cyber Particle Core)
+
+- 用户认可/要求保留：将原有黑胶唱片替换为深潜粒子能量核心，极具科幻感。
+- 涉及文件：`public/index.html`
+- 关键参数/实现：采用多层 SVG `<animateTransform>` 动画实现星环的正反转、原生 `feGaussianBlur` 滤镜实现霓虹光晕渲染、核心加入扩散涟漪脉冲效果。
+- 禁止回退或改坏的点：必须保留核心 `<g>` 和 `<animateTransform>` 的动画实现以保证跨平台兼容性，不可使用 CSS `transform-origin` 来直接旋转 SVG 的 `<g>`。

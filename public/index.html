@@ -1932,12 +1932,233 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
 <!-- 空场 Home -->
 <section id="empty-home" aria-label="Mineradio home">
   <div class="empty-home-shell">
-    <div class="home-hero">
-      <div class="home-hero-inner home-construction-inner">
-        <div class="home-title home-construction-title">🚧此处施工，敬请期待🚧</div>
-        <button class="home-chip home-console-chip" type="button" onclick="openHomePlayerConsole()">展开播放器控制台</button>
+    <div class="home-hero" id="home-super-hero" 
+         ondragover="event.preventDefault(); this.style.borderColor='rgba(255,255,255,0.4)'; this.style.transform='scale(1.01)'" 
+         ondragleave="event.preventDefault(); this.style.borderColor=''; this.style.transform=''" 
+         ondrop="event.preventDefault(); this.style.borderColor=''; this.style.transform=''; if(event.dataTransfer.files.length && typeof handleFiles === 'function') handleFiles(event.dataTransfer.files);">
+      
+      <!-- 右侧装饰：炫酷粒子深潜核心 (Cyber Particle Core) -->
+      <div class="home-visual-deco" style="position: absolute; right: 42px; top: 50%; transform: translateY(-50%); width: 280px; height: 280px; pointer-events: none; filter: drop-shadow(0 0 30px rgba(0, 245, 212, 0.15));">
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+          <defs>
+            <radialGradient id="glow-core" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" />
+              <stop offset="30%" stop-color="var(--home-accent, #00f5d4)" />
+              <stop offset="70%" stop-color="rgba(0, 245, 212, 0.3)" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+            <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- 外层星环：慢速正转 -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="30s" repeatCount="indefinite" />
+            <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="2 8"/>
+            <circle cx="100" cy="100" r="86" fill="none" stroke="var(--home-accent, #00f5d4)" stroke-width="1" stroke-dasharray="8 20 40 20" opacity="0.6"/>
+            <!-- 轨道上的小星球 -->
+            <circle cx="14" cy="100" r="3" fill="var(--home-accent, #00f5d4)" filter="url(#neon-glow)"/>
+            <circle cx="186" cy="100" r="2" fill="#fff"/>
+          </g>
+          
+          <!-- 中层刻度环：中速反转 -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="20s" repeatCount="indefinite" />
+            <circle cx="100" cy="100" r="72" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="8" stroke-dasharray="2 12"/>
+            <circle cx="100" cy="100" r="62" fill="none" stroke="var(--home-accent, #00f5d4)" stroke-width="2" stroke-dasharray="50 30 10 30" filter="url(#neon-glow)"/>
+            <!-- 轨道星球 -->
+            <circle cx="100" cy="28" r="4" fill="#fff" filter="url(#neon-glow)"/>
+          </g>
+
+          <!-- 内层能量环：高速正转 -->
+          <g>
+            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="10s" repeatCount="indefinite" />
+            <circle cx="100" cy="100" r="48" fill="none" stroke="var(--home-accent, #00f5d4)" stroke-width="3" stroke-dasharray="5 30 60 15" filter="url(#neon-glow)"/>
+            <circle cx="100" cy="100" r="40" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 8"/>
+          </g>
+
+          <!-- 核心能量波纹（向外扩散） -->
+          <circle cx="100" cy="100" r="25" fill="none" stroke="var(--home-accent, #00f5d4)" stroke-width="2">
+            <animate attributeName="r" from="25" to="70" dur="3s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.1 0.8 0.3 1" />
+            <animate attributeName="opacity" from="0.8" to="0" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="stroke-width" from="4" to="0.5" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="100" cy="100" r="25" fill="none" stroke="var(--home-accent, #00f5d4)" stroke-width="2">
+            <animate attributeName="r" from="25" to="70" dur="3s" begin="1.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.1 0.8 0.3 1" />
+            <animate attributeName="opacity" from="0.8" to="0" dur="3s" begin="1.5s" repeatCount="indefinite" />
+            <animate attributeName="stroke-width" from="4" to="0.5" dur="3s" begin="1.5s" repeatCount="indefinite" />
+          </circle>
+
+          <!-- 核心发光体（呼吸效果） -->
+          <circle cx="100" cy="100" r="26" fill="url(#glow-core)">
+            <animate attributeName="r" values="24; 28; 24" dur="2s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.7; 1; 0.7" dur="2s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="100" cy="100" r="12" fill="#fff" filter="url(#neon-glow)">
+            <animate attributeName="r" values="10; 14; 10" dur="2s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </div>
+      <style>
+        .home-list-item {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          max-width: 380px;
+          padding: 12px 16px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.035);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          text-align: left;
+          color: #fff;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+        }
+        .home-list-item:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.12);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+        .home-list-item:active {
+          transform: translateY(0);
+        }
+        .hli-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: color-mix(in srgb, var(--home-accent, #00f5d4) 15%, rgba(255, 255, 255, 0.05));
+          color: color-mix(in srgb, var(--home-accent, #00f5d4) 80%, #ffffff);
+          margin-right: 14px;
+          flex-shrink: 0;
+          box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .hli-text {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        .hli-title {
+          font-size: 14.5px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.95);
+          letter-spacing: 0.3px;
+          line-height: 1;
+        }
+        .hli-sub {
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.45);
+          line-height: 1;
+        }
+        .hli-action {
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          color: rgba(255, 255, 255, 0.5);
+          display: flex;
+          align-items: center;
+        }
+        .home-list-item:hover .hli-action {
+          opacity: 1;
+          transform: translateX(0);
+          color: color-mix(in srgb, var(--home-accent, #00f5d4) 80%, #ffffff);
+        }
+      </style>
+
+      <div class="home-hero-inner" style="display:flex; flex-direction:column; gap:16px; justify-content:center; align-items:flex-start; width:100%; max-width:65%; min-height:100%; box-sizing:border-box;">
+        <!-- 动态时间感知问候 (Weather / Time Sync) -->
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom: 4px;">
+          <img id="home-greeting-avatar" src="https://p4.music.126.net/SUeqMM8HOIpHvQDEjnGWsw==/109951165647004069.jpg" style="width:48px; height:48px; border-radius:12px; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08);" alt="">
+          <div class="home-title" id="home-greeting-text" style="font-size: 36px; font-weight: 760; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.92); text-shadow: 0 8px 24px rgba(0,0,0,0.4); white-space: nowrap;">开启新节奏，今天想听点什么？</div>
+        </div>
+        
+        <!-- 精致氛围导语 -->
+        <div class="home-desc" id="home-greeting-sub" style="font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.6; font-weight: 400; margin-bottom: 18px; letter-spacing: 0.3px; max-width: 90%;">从你的个人推荐开始</div>
+        
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top: 6px; width: 100%;">
+          <!-- 1. 网易云“每日推荐” (Daily Mix) -->
+          <button class="home-list-item" type="button" onclick="playHomeDaily(); togglePlaylistPanel();">
+            <div class="hli-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            </div>
+            <div class="hli-text">
+              <div class="hli-title">播放今日推荐</div>
+              <div class="hli-sub">根据你的红心与听歌习惯生成</div>
+            </div>
+            <div class="hli-action">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+          </button>
+          
+          <!-- 2. 最近播放 (Recently Played) -->
+          <button class="home-list-item" type="button" onclick="playHomeRecent(); togglePlaylistPanel();">
+            <div class="hli-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="hli-text">
+              <div class="hli-title">继续播放</div>
+              <div class="hli-sub">回到你最近聆听的音乐节奏</div>
+            </div>
+            <div class="hli-action">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+          </button>
+
+          <!-- 3. 最常听 (Most Listened / Insight) -->
+          <button class="home-list-item" type="button" onclick="openHomeInsight(); togglePlaylistPanel();">
+            <div class="hli-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20V14"></path></svg>
+            </div>
+            <div class="hli-text">
+              <div class="hli-title">最常听的歌</div>
+              <div class="hli-sub">回顾陪伴你最久的熟悉旋律</div>
+            </div>
+            <div class="hli-action">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </div>
+          </button>
+        </div>
+
       </div>
     </div>
+    
+    <script>
+      // 1. 天气与场景电台 - 动态问候语与副标题逻辑
+      (function updateGreeting() {
+        var hour = new Date().getHours();
+        var greeting = "开启新节奏，今天想听点什么？";
+        var subText = "从你的个人推荐开始";
+        if (hour >= 5 && hour < 10) {
+          greeting = "晨光破晓，开启新节奏";
+          subText = "播放一首充满活力的歌，唤醒崭新的一天。";
+        } else if (hour >= 10 && hour < 14) {
+          greeting = "午后小憩，听首好歌";
+          subText = "放下手头的忙碌，用旋律给心灵放个短暂的假。";
+        } else if (hour >= 14 && hour < 19) {
+          greeting = "傍晚余晖，放松一下";
+          subText = "听一首温热的歌，看窗外的晚霞渐渐沉入暮色。";
+        } else if (hour >= 19 || hour < 5) {
+          greeting = "夜幕降临，宇宙深潜";
+          subText = "在安静的夜里，与粒子和节拍一起坠入深邃的音乐宇宙。";
+        }
+        var el = document.getElementById('home-greeting-text');
+        if (el) el.innerText = greeting;
+        var subEl = document.getElementById('home-greeting-sub');
+        if (subEl) subEl.innerText = subText;
+      })();
+    </script>
 
     <div class="home-grid">
       <button class="home-card" data-home-tone="library" type="button" onclick="openHomeLibrary()">
@@ -16051,6 +16272,8 @@ async function playHomeDaily() {
   safeShelfRebuild('home-daily', true);
   forcePlaybackControlsInteractive();
   playQueueAt(0).catch(function(e){ console.warn('[HomeDailyPlay]', e); });
+  togglePlaylistPanel(true);
+  openPlaylistPanelTab('queue', true);
 }
 async function playHomePrivateRadio() {
   homeForcedOpen = false;
@@ -16277,15 +16500,21 @@ async function playHomeRecent(record) {
   safeShelfRebuild('home-recent-song', true);
   forcePlaybackControlsInteractive();
   await playQueueAt(0);
+  togglePlaylistPanel(true);
+  openPlaylistPanelTab('queue', true);
 }
 function openHomeInsight() {
   var summary = homeListenSummary();
   if (summary.topArtist && summary.topArtist.name) {
     runHomeSearch(summary.topArtist.name);
+    togglePlaylistPanel(true);
+    openPlaylistPanelTab('queue', true);
     return;
   }
   if (summary.topSong && summary.topSong.name) {
     runHomeSearch(summary.topSong.name);
+    togglePlaylistPanel(true);
+    openPlaylistPanelTab('queue', true);
     return;
   }
   showToast('播放几首歌后会生成听歌画像');
@@ -23417,6 +23646,14 @@ function renderUserBtn() {
     btn.title = '登录账号';
     btn.innerHTML = '<span class="login-word">登录</span>';
   }
+  
+  var greetingAvatar = document.getElementById('home-greeting-avatar');
+  if (greetingAvatar) {
+    var p = activeAccountProvider || 'netease';
+    var s = platformStatus(p) || {};
+    greetingAvatar.src = providerAvatarSrc(p, s);
+  }
+  
   updatePlaybackQualityUi();
 }
 async function showLoginModal(opts) {
